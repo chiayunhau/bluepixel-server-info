@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from fetch_cpu_usage import start_fetching
 from gevent.pywsgi import WSGIServer
+import requests
 
 app = Flask(__name__)
 
