@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from fetch_cpu_usage import start_fetching
+from gevent.pywsgi import WSGIServer
 
 app = Flask(__name__)
 
@@ -16,4 +17,6 @@ def server_cpu():
     return jsonify({'cpu_usage': start_fetching(), 'cpu_limit': '200%'})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    # Run the Flask app using the WSGI server
+    http_server = WSGIServer(('0.0.0.0', 5000), app)
+    http_server.serve_forever()
