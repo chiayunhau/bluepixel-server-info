@@ -17,13 +17,6 @@ def add_header(response):
 def server_cpu():
     return jsonify({'cpu_usage': start_fetching(), 'cpu_limit': '200%'})
 
-response = requests.get('https://api.ipify.org')
-if response.status_code == 200:
-    print('Your public IP address is:', response.text)
-else:
-    print('Failed to retrieve public IP address')
-
-
 if __name__ == '__main__':
     # Run the Flask app using the WSGI server
     http_server = WSGIServer(('0.0.0.0', 5000), app)
