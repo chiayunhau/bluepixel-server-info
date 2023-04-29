@@ -8,6 +8,14 @@ API_URL = 'https://ctrl.cxmpute.com/api/client'
 API_KEY = 'ptlc_tTx1NlJbCmfVRXvzJu6O0t76E9j7kGnXZOrWruZRMmA'
 SERVER_ID = 'b3683f94-64d0-42ce-94ed-735fe30a8540'
 
+# Disable CORS in Flask
+@app.after_request
+def add_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET'
+    return response
+
 @app.route('/server/cpu')
 def server_cpu():
     headers = {
@@ -24,7 +32,6 @@ def server_cpu():
         return jsonify({'cpu_usage': cpu_usage})
     else:
         return jsonify({'error': 'Failed to retrieve server information'})
-    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
