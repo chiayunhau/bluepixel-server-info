@@ -14,6 +14,11 @@ def add_header(response):
 
 @app.route('/server/cpu')
 def server_cpu():
+    response = requests.get('https://api.ipify.org')
+    if response.status_code == 200:
+        print('Your public IP address is:', response.text)
+    else:
+        print('Failed to retrieve public IP address')
     return jsonify({'cpu_usage': start_fetching(), 'cpu_limit': '200%'})
 
 if __name__ == '__main__':
