@@ -23,7 +23,7 @@ def fetch_cpu_usage():
         print('Failed to retrieve server information')
 
 # Schedule the fetch_cpu_usage function to run every 5 seconds
-schedule.every(5).seconds.do(fetch_cpu_usage)
+schedule.every(1).seconds.do(fetch_cpu_usage)
 
 # Function to start the scheduled task and return the CPU usage
 def start_fetching():
