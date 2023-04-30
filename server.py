@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from fetch_usage import fetch_cpu_usage, fetch_ram_usage, fetch_disk_usage, fetch_network_usage
+from fetch_usage import fetch_cpu_usage, fetch_ram_usage, fetch_disk_usage, fetch_state
 from gevent.pywsgi import WSGIServer
 
 app = Flask(__name__)
@@ -32,6 +32,13 @@ def get_disk_usage():
     if disk_usage is None:
         return jsonify({'error': 'Failed to retrieve server information'})
     return jsonify({'disk_usage': disk_usage})
+
+@app.route('/state')
+def get_state():
+    current_state = fetch_state()
+    if current_state is None:
+        return jsonify({'error': 'Failed to retrieve server information'})
+    return jsonify({'current_state': current_state})
 
 if __name__ == '__main__':
     http_server = WSGIServer(('0.0.0.0', 5000), app)

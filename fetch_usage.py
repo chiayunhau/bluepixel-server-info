@@ -52,17 +52,16 @@ def fetch_disk_usage():
         return None
 
 # Function to fetch network usage data from the Pterodactyl API
-def fetch_network_usage():
+def fetch_state():
     headers = {
         'Authorization': f'Bearer {API_KEY}',
         'Accept': 'application/json'
     }
     response = requests.get(f'{API_URL}/servers/{SERVER_ID}/resources', headers=headers)
     if response.status_code == 200:
-        data = response.json()['attributes']['resources']
-        network_rx = data['network_rx_bytes']
-        network_tx = data['network_tx_bytes']
-        return {'network_rx': network_rx, 'network_tx': network_tx}
+        data = response.json()['attributes']
+        state = data['current_state']
+        return state
     else:
         print('Failed to retrieve server information')
         return None
