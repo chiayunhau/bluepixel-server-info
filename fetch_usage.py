@@ -29,7 +29,7 @@ def fetch_ram_usage():
     if response.status_code == 200:
         data = response.json()['attributes']['resources']
         ram_usage = data['memory_bytes']
-        ram_gb = round(ram_usage / (1024**3), 2)
+        ram_gb = round(ram_usage / (1024**2), 2)
         return ram_gb
     else:
         print('Failed to retrieve server information')
@@ -45,7 +45,7 @@ def fetch_disk_usage():
     if response.status_code == 200:
         data = response.json()['attributes']['resources']
         disk_usage = data['disk_bytes']
-        disk_usage_gb = round(disk_usage / (1024**3), 2)
+        disk_usage_gb = round(disk_usage / (1024**2), 2)
         return disk_usage_gb
     else:
         print('Failed to retrieve server information')
