@@ -4,3 +4,5 @@ flask-cors
 schedule
 gevent==21.8.0
 gunicorn==20.1.0
+mysql-connector-python
+jsonify
