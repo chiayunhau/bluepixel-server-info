@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from fetch_usage import fetch_cpu_usage, fetch_ram_usage, fetch_disk_usage, fetch_state
 from gevent.pywsgi import WSGIServer
+import requests
 
 app = Flask(__name__)
 
@@ -39,6 +40,18 @@ def get_state():
     if current_state is None:
         return jsonify({'error': 'Failed to retrieve server information'})
     return jsonify({'current_state': current_state})
+
+@app.route('/start-server')
+def start_server(server_id, api_key):
+    endpoint = f'https://ctrl.cxmpute.com/api/client/servers/b3683f94-64d0-42ce-94ed-735fe30a8540/power'
+    headers = {'Authorization': f'Bearer {api_key}'}
+    data = {'signal': 'start'}
+    response = requests.post(endpoint, headers=headers, json=data)
+
+    if response.status_code == 204:
+        return jsonify({'success': True})
+    else:
+        return jsonify({'success': False})
 
 if __name__ == '__main__':
     http_server = WSGIServer(('0.0.0.0', 5000), app)
