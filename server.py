@@ -42,9 +42,9 @@ def get_state():
     return jsonify({'current_state': current_state})
 
 @app.route('/start-server')
-def start_server(server_id, api_key):
+def start_server():
     endpoint = f'https://ctrl.cxmpute.com/api/client/servers/b3683f94-64d0-42ce-94ed-735fe30a8540/power'
-    headers = {'Authorization': f'Bearer {api_key}'}
+    headers = {'Authorization': f'Bearer ptlc_tTx1NlJbCmfVRXvzJu6O0t76E9j7kGnXZOrWruZRMmA'}
     data = {'signal': 'start'}
     response = requests.post(endpoint, headers=headers, json=data)
 
